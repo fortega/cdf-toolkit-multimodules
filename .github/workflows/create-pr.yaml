@@ -19,7 +19,7 @@ jobs:
       - name: List files to verify submodules
         env:
           NEW_BRANCH_NAME: update_submodule
-          NEW_COMMIT_TITLE: feat: update submodule
+          NEW_COMMIT_TITLE: "feat: update submodule"
         run: |
           git submodule update --remote
 
