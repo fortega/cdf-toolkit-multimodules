@@ -27,7 +27,7 @@ jobs:
         env:
           NEW_BRANCH_NAME: update_submodule
           NEW_COMMIT_TITLE: "feat: update submodule"
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git submodule update --remote
 
@@ -36,6 +36,7 @@ jobs:
           if [ $DIFF_COUNT -gt 0 ]
           then
             echo "update found"
+            git pull -a
             git checkout -b $NEW_BRANCH_NAME
             git add .
             git commit -m "$NEW_COMMIT_TITLE"
