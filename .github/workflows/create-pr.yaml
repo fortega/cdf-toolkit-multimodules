@@ -36,11 +36,10 @@ jobs:
           if [ $DIFF_COUNT -gt 0 ]
           then
             echo "update found"
-            git pull -a
             git checkout -b $NEW_BRANCH_NAME
             git add .
             git commit -m "$NEW_COMMIT_TITLE"
-            git push origin $NEW_BRANCH_NAME
+            git push -f origin $NEW_BRANCH_NAME
             gh pr create --base main --title "$NEW_COMMIT_TITLE"
           else
             echo "no updates"
