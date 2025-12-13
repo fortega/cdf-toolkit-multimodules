@@ -15,8 +15,11 @@ jobs:
           submodules: 'recursive'  # Checkout all submodules recursively
           token: ${{ secrets.GITHUB_TOKEN }}  # Use GitHub token for private submodules
       
-      # Your build/test steps here
-      - name: List files to verify submodules
+      - name: git config
+        run: |
+          git config --global user.name "bot"
+          git config --global user.email "bot@github.com"
+      - name: Update and create pr
         env:
           NEW_BRANCH_NAME: update_submodule
           NEW_COMMIT_TITLE: "feat: update submodule"
