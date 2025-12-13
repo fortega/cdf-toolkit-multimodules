@@ -27,6 +27,7 @@ jobs:
         env:
           NEW_BRANCH_NAME: update_submodule
           NEW_COMMIT_TITLE: "feat: update submodule"
+          GH_TOKEN: ${{ github.token }}
         run: |
           git submodule update --remote
 
