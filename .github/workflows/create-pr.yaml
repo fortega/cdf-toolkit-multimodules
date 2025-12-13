@@ -1,0 +1,33 @@
+name: Create update PR
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checkout repository with submodules
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'  # Checkout all submodules recursively
+          token: ${{ secrets.GITHUB_TOKEN }}  # Use GitHub token for private submodules
+      
+      # Your build/test steps here
+      - name: List files to verify submodules
+        run: |
+          git submodule update --remote
+
+          DIFF_COUNT=$(git diff main | wc -l)
+
+          if [ $DIFF_COUNT -gt 0 ]
+          then
+            echo "update found"
+          else
+            echo "no updates"
+          fi
+
+          echo remote
+          git remote
