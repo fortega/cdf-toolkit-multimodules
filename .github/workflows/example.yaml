@@ -18,15 +18,18 @@ jobs:
           submodules: 'recursive'  # Checkout all submodules recursively
           token: ${{ secrets.GITHUB_TOKEN }}  # Use GitHub token for private submodules
       
-      # Optional: Update submodules to latest commit on their tracked branch
-      - name: Update submodules (optional)
-        run: |
-          git submodule update --remote --merge
-      
       # Your build/test steps here
       - name: List files to verify submodules
         run: |
           echo "Repository structure:"
-          ls -la
+          ls -R
+          echo "Submodule status:"
+          git submodule status
+
+          echo "update"
+          git submodule update --remote
+
+          echo "Repository structure:"
+          ls -R
           echo "Submodule status:"
           git submodule status
