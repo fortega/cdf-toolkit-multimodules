@@ -1,0 +1,4 @@
+[cdf]
+default_organization_dir = "acme"
+default_env = "dev"
+file_encoding = "utf-8"
