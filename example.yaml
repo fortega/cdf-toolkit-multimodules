@@ -1,0 +1,32 @@
+name: Checkout with Submodules
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checkout repository with submodules
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'  # Checkout all submodules recursively
+          token: ${{ secrets.GITHUB_TOKEN }}  # Use GitHub token for private submodules
+      
+      # Optional: Update submodules to latest commit on their tracked branch
+      - name: Update submodules (optional)
+        run: |
+          git submodule update --remote --merge
+      
+      # Your build/test steps here
+      - name: List files to verify submodules
+        run: |
+          echo "Repository structure:"
+          ls -la
+          echo "Submodule status:"
+          git submodule status
