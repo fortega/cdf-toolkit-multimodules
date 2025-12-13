@@ -1,0 +1,6 @@
+[submodule "acme/modules/b"]
+	path = acme/modules/b
+	url = git@github.com:fortega/cdf-toolkit-module-b.git
+[submodule "acme/modules/a"]
+	path = acme/modules/a
+	url = git@github.com:fortega/cdf-toolkit-module-a.git
