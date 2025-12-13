@@ -17,6 +17,9 @@ jobs:
       
       # Your build/test steps here
       - name: List files to verify submodules
+        env:
+          NEW_BRANCH_NAME: update_submodule
+          NEW_COMMIT_TITLE: feat: update submodule
         run: |
           git submodule update --remote
 
@@ -25,9 +28,11 @@ jobs:
           if [ $DIFF_COUNT -gt 0 ]
           then
             echo "update found"
+            git checkout -b $NEW_BRANCH_NAME
+            git add .
+            git commit -m "$NEW_COMMIT_TITLE"
+            git push origin $NEW_BRANCH_NAME
+            gh pr create --base main --title "$NEW_COMMIT_TITLE"
           else
             echo "no updates"
           fi
-
-          echo remote
-          git remote
