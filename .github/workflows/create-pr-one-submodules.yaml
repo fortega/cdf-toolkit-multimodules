@@ -48,7 +48,7 @@ jobs:
             echo "update found"
             echo $DIFF_TEXT
             
-            git checkout -b $NEW_BRANCH_NAME
+            git checkout -b $NEW_BRANCH_NAME_${{ inputs.submodule }}
             git add .
             git commit -m "$NEW_COMMIT_TITLE"
             git push -f origin $NEW_BRANCH_NAME
