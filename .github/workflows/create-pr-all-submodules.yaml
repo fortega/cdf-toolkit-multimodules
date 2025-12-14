@@ -31,13 +31,12 @@ jobs:
         run: |
           git submodule update --remote
           DIFF_TEXT=$(git diff main)
+          echo $DIFF_TEXT
           DIFF_COUNT=$(echo -n $DIFF_TEXT | wc -l)
-          RETURN_CODE=0
 
           if [ $DIFF_COUNT -gt 0 ]
           then
             echo "update found"
-            echo $DIFF_TEXT
             
             git checkout -b $NEW_BRANCH_NAME
             git add .
@@ -46,7 +45,5 @@ jobs:
 
             gh pr create --base main --title "$NEW_COMMIT_TITLE" --body "$NEW_COMMIT_BODY"
           else
-            RETURN_CODE=1
             echo "no updates"
           fi
-          exit $RETURN_CODE
