@@ -33,16 +33,17 @@ jobs:
           git config --global user.email "bot@github.com"
       - name: Update submodule and create PR
         env:
+          BASE_BRANCH: main
           NEW_BRANCH_NAME: update_single_submodule_${{ github.sha }}
           NEW_COMMIT_TITLE: "feat: update submodule ${{ inputs.submodule }} ${{ github.sha }}"
           NEW_COMMIT_BODY: "Create by action"
           GH_TOKEN: ${{ github.token }}
         run: |
           git submodule update --remote ${{ inputs.submodule }}
-          DIFF_TEXT=$(git diff main)
+          DIFF_TEXT=$(git diff $BASE_BRANCH)
           echo $DIFF_TEXT
           DIFF_COUNT=$(echo -n $DIFF_TEXT | wc -l)
-
+          echo $DIFF_COUNT
           if [ $DIFF_COUNT -gt 0 ]
           then
             echo "update found"
@@ -52,7 +53,7 @@ jobs:
             git commit -m "$NEW_COMMIT_TITLE"
             git push -f origin $NEW_BRANCH_NAME
 
-            gh pr create --base main --title "$NEW_COMMIT_TITLE" --body "$NEW_COMMIT_BODY"
+            gh pr create --base $BASE_BRANCH --title "$NEW_COMMIT_TITLE" --body "$NEW_COMMIT_BODY"
           else
             echo "no updates"
           fi
