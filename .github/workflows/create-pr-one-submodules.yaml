@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: 'recursive'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
       
       - name: git config
         run: |
@@ -33,10 +33,10 @@ jobs:
           git config --global user.email "bot@github.com"
       - name: Update submodule and create PR
         env:
-          NEW_BRANCH_NAME: update_submodule
-          NEW_COMMIT_TITLE: "feat: update submodule ${{ inputs.submodule }}"
+          NEW_BRANCH_NAME: update_single_submodule_${{ github.sha }}
+          NEW_COMMIT_TITLE: "feat: update submodule ${{ inputs.submodule }} ${{ github.sha }}"
           NEW_COMMIT_BODY: "Create by action"
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           git submodule update --remote ${{ inputs.submodule }}
           DIFF_TEXT=$(git diff main)
@@ -48,7 +48,7 @@ jobs:
             echo "update found"
             echo $DIFF_TEXT
             
-            git checkout -b $NEW_BRANCH_NAME_${{ inputs.submodule }}
+            git checkout -b $NEW_BRANCH_NAME
             git add .
             git commit -m "$NEW_COMMIT_TITLE"
             git push -f origin $NEW_BRANCH_NAME
