@@ -49,4 +49,4 @@ jobs:
             RETURN_CODE=1
             echo "no updates"
           fi
-          return $RETURN_CODE
+          exit $RETURN_CODE
