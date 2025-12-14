@@ -26,7 +26,7 @@ jobs:
         env:
           BASE_BRANCH: main
           NEW_BRANCH_NAME: update_submodule
-          NEW_COMMIT_TITLE: "feat: update submodule"
+          NEW_COMMIT_TITLE: "feat: update all submodules"
           NEW_COMMIT_BODY: "Create by action"
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
