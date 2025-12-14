@@ -54,7 +54,5 @@ jobs:
 
             gh pr create --base main --title "$NEW_COMMIT_TITLE" --body "$NEW_COMMIT_BODY"
           else
-            RETURN_CODE=1
             echo "no updates"
           fi
-          exit $RETURN_CODE
