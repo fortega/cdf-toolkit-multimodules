@@ -31,7 +31,7 @@ jobs:
         run: |
           git submodule update --remote
           DIFF_TEXT=$(git diff main)
-          DIFF_COUNT=$(echo $DIFF_TEXT | wc -l)
+          DIFF_COUNT=$(echo -n $DIFF_TEXT | wc -l)
           RETURN_CODE=0
 
           if [ $DIFF_COUNT -gt 0 ]
