@@ -31,8 +31,6 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git submodule update --remote
-          # DIFF_TEXT=$(git diff $BASE_BRANCH)
-          # echo $DIFF_TEXT
           DIFF_COUNT=$(git diff $BASE_BRANCH | wc -l)
           echo $DIFF_COUNT
           if [ $DIFF_COUNT -gt 0 ]

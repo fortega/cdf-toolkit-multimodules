@@ -39,9 +39,7 @@ jobs:
           NEW_COMMIT_BODY: "Create by action"
           GH_TOKEN: ${{ github.token }}
         run: |
-          git submodule update --remote ${{ inputs.submodule }}
-          # DIFF_TEXT=$(git diff $BASE_BRANCH)
-          # echo $DIFF_TEXT
+          git submodule update --remote ${{ inputs.submodule }}T
           DIFF_COUNT=$(git diff $BASE_BRANCH | wc -l)
           echo $DIFF_COUNT
           if [ $DIFF_COUNT -gt 0 ]
