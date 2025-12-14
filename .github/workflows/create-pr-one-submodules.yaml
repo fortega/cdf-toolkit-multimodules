@@ -40,9 +40,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           git submodule update --remote ${{ inputs.submodule }}
-          DIFF_TEXT=$(git diff $BASE_BRANCH)
-          echo $DIFF_TEXT
-          DIFF_COUNT=$(echo -n $DIFF_TEXT | wc -l)
+          # DIFF_TEXT=$(git diff $BASE_BRANCH)
+          # echo $DIFF_TEXT
+          DIFF_COUNT=$(git diff $BASE_BRANCH | wc -l)
           echo $DIFF_COUNT
           if [ $DIFF_COUNT -gt 0 ]
           then
